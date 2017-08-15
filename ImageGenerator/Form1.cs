@@ -12,8 +12,10 @@ namespace ImageGenerator
 {
     public partial class ImageGenerator : Form
     {
-        Graphics paper;
-        private SolidBrush brush, brush2;
+        Random randomColor = new Random();
+        Color color;
+
+        private SolidBrush brush;
         int x = 0, y = 0, swap = 0;
         int max_height, max_width;
 
@@ -24,8 +26,6 @@ namespace ImageGenerator
 
         private void ImageGenerator_Load(object sender, EventArgs e)
         {
-            brush = new SolidBrush(Color.Black);
-            brush2 = new SolidBrush(Color.White);
             max_height = this.Height;
             max_width = this.Width;
             this.Invalidate();
@@ -37,16 +37,12 @@ namespace ImageGenerator
             {
                 for (int w = 0; w < max_width; w++)
                 {
-                    if (swap == 0)
-                    {
-                        e.Graphics.FillRectangle(brush, h, w, 1, 1);
-                        swap = 1;
-                    }
-                    else
-                    {
-                        e.Graphics.FillRectangle(brush2, h, w, 1, 1);
-                        swap = 0;
-                    }
+                    //get a random colour
+                    color = Color.FromArgb(randomColor.Next(256), randomColor.Next(256), randomColor.Next(256));
+                    brush = new SolidBrush(color);
+
+                    //paint the pixel
+                    e.Graphics.FillRectangle(brush, h, w, 1, 1);
                 }
             }
         }
