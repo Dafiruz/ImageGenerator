@@ -13,7 +13,7 @@ namespace ImageGenerator
     public partial class ImageGenerator : Form
     {
         Graphics paper;
-        private SolidBrush brush;
+        private SolidBrush brush, brush2;
         int x = 0, y = 0, swap = 0;
         int max_height, max_width;
 
@@ -25,37 +25,30 @@ namespace ImageGenerator
         private void ImageGenerator_Load(object sender, EventArgs e)
         {
             brush = new SolidBrush(Color.Black);
+            brush2 = new SolidBrush(Color.White);
             max_height = this.Height;
             max_width = this.Width;
+            this.Invalidate();
         }
 
         private void ImageGenerator_Paint(object sender, PaintEventArgs e)
         {
-            
-            paper = e.Graphics;
-            draw(paper);
-        }
-
-        private void draw(Graphics paper)
-        {
             for (int h = 0; h < max_height; h++)
-			{
+            {
                 for (int w = 0; w < max_width; w++)
-			    {
-
-			    }
-			}
-            if (swap == 0)
-            {
-                paper.FillRectangle(brush, x, y, 1, 1);
-                swap = 1;
+                {
+                    if (swap == 0)
+                    {
+                        e.Graphics.FillRectangle(brush, h, w, 1, 1);
+                        swap = 1;
+                    }
+                    else
+                    {
+                        e.Graphics.FillRectangle(brush2, h, w, 1, 1);
+                        swap = 0;
+                    }
+                }
             }
-            else
-            {
-                paper.FillRectangle(brush2, x, y, 1, 1);
-                swap = 0;
-            }
-
         }
     }
 }
