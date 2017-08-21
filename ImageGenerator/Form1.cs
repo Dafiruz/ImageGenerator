@@ -39,7 +39,7 @@ namespace ImageGenerator
                 {
                     //get a random colour
                     color = Color.FromArgb(randomColor.Next(256), randomColor.Next(256), randomColor.Next(256));
-                    brush = new SolidBrush(color);
+                    brush = new SolidBrush(e.Graphics.GetNearestColor(color));
 
                     //paint the pixel
                     e.Graphics.FillRectangle(brush, h, w, 1, 1);
